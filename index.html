@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website untuk Sales Hyundai | djoeraganwebsite.com</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #002C5F;
+    --blue-mid: #0a4a8f;
+    --blue-light: #e8f0f9;
+    --blue-lighter: #f0f5fb;
+    --accent: #00aad2;
+    --accent-light: #e0f6fb;
+    --text: #0f1923;
+    --text-mid: #3a4a5c;
+    --text-muted: #6b7f96;
+    --text-dim: #a0b0c0;
+    --bg: #ffffff;
+    --bg-alt: #f7f9fc;
+    --bg-alt2: #f0f5fb;
+    --border: #dde5ef;
+    --border-strong: #c2d0e2;
+    --success: #008a5e;
+    --warn: #b05800;
+    --warn-bg: #fff4e0;
+    --warn-border: #f5c88a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.7; overflow-x:hidden; }
+  h1,h2,h3 { font-family:'DM Serif Display',Georgia,serif; line-height:1.2; }
+  em { font-style:italic; color:var(--blue); }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:.9rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); box-shadow:0 1px 8px rgba(0,44,95,.06); }
+  .nav-brand { font-weight:700; font-size:.82rem; letter-spacing:.1em; color:var(--blue); text-transform:uppercase; text-decoration:none; }
+  .nav-cta { background:var(--blue); color:#fff; padding:.5rem 1.25rem; border-radius:6px; font-weight:600; font-size:.82rem; text-decoration:none; transition:background .2s; }
+  .nav-cta:hover { background:var(--blue-mid); }
+
+  /* BUTTONS */
+  .btn-primary { display:inline-flex; align-items:center; gap:.5rem; background:var(--blue); color:#fff; padding:.85rem 2rem; border-radius:6px; font-weight:700; text-decoration:none; font-size:.95rem; transition:background .2s,transform .15s; box-shadow:0 2px 14px rgba(0,44,95,.2); }
+  .btn-primary:hover { background:var(--blue-mid); transform:translateY(-1px); }
+  .btn-ghost { display:inline-flex; align-items:center; gap:.5rem; background:transparent; color:var(--blue); border:1.5px solid var(--blue); padding:.85rem 2rem; border-radius:6px; font-weight:600; text-decoration:none; font-size:.95rem; transition:background .2s; }
+  .btn-ghost:hover { background:var(--blue-light); }
+
+  /* HERO */
+  .hero { padding:9rem 1.5rem 5rem; background:linear-gradient(155deg,var(--bg-alt2) 0%,var(--bg) 60%); border-bottom:1px solid var(--border); display:flex; flex-direction:column; align-items:center; text-align:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:-100px; right:-100px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle,rgba(0,170,210,.07) 0%,transparent 70%); pointer-events:none; }
+  .hero-badge { display:inline-flex; align-items:center; gap:.5rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); font-weight:700; background:var(--blue-light); border:1px solid var(--border-strong); padding:.35rem 1rem; border-radius:2rem; margin-bottom:2rem; }
+  .hero-badge span { color:var(--accent); }
+  .hero h1 { font-size:clamp(2.2rem,5.5vw,3.8rem); max-width:800px; margin-bottom:1.25rem; letter-spacing:-.01em; }
+  .hero-sub { font-size:1.05rem; color:var(--text-mid); max-width:560px; margin-bottom:2.5rem; line-height:1.85; }
+  .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-bottom:3.5rem; }
+  .trust-row { display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap; justify-content:center; }
+  .trust-item { display:flex; align-items:center; gap:.45rem; font-size:.8rem; color:var(--text-muted); font-weight:500; }
+  .trust-dot { width:7px; height:7px; border-radius:50%; background:var(--success); flex-shrink:0; }
+  .trust-sep { color:var(--border-strong); }
+
+  /* LAYOUT */
+  section { padding:5rem 1.5rem; }
+  .container { max-width:960px; margin:0 auto; }
+  .section-label { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:.75rem; display:block; }
+  .section-title { font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:.75rem; }
+  .section-body { color:var(--text-mid); font-size:1rem; max-width:600px; line-height:1.9; }
+  .divider { width:40px; height:3px; background:var(--accent); border-radius:2px; margin-bottom:1.25rem; }
+
+  /* KEYWORD DATA — NEW SECTION */
+  .kw-bg { background:var(--blue); }
+  .kw-intro { color:rgba(255,255,255,.75); font-size:1rem; max-width:600px; line-height:1.9; margin-bottom:2.5rem; }
+  .kw-intro em { color:#fff; font-style:normal; font-weight:700; }
+  .kw-hero-stat { display:flex; align-items:baseline; gap:.75rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+  .kw-big { font-family:'DM Serif Display',serif; font-size:clamp(3rem,8vw,5.5rem); color:#fff; line-height:1; }
+  .kw-big-label { font-size:1rem; color:rgba(255,255,255,.65); line-height:1.4; }
+  .kw-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kw-card { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:1.25rem; }
+  .kw-card-vol { font-family:'DM Serif Display',serif; font-size:1.75rem; color:#fff; line-height:1; margin-bottom:.25rem; }
+  .kw-card-kw { font-size:.85rem; color:rgba(255,255,255,.75); margin-bottom:.5rem; }
+  .kw-pill { display:inline-block; font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .55rem; border-radius:3px; }
+  .kw-pill.low { background:rgba(0,200,130,.15); color:#5eefc0; border:1px solid rgba(0,200,130,.25); }
+  .kw-pill.mid { background:rgba(255,200,100,.12); color:#ffc970; border:1px solid rgba(255,200,100,.2); }
+  .kw-note { font-size:.78rem; color:rgba(255,255,255,.45); font-style:italic; margin-top:1rem; }
+  .kw-total-bar { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:1.5rem 1.75rem; margin-top:1.5rem; }
+  .kw-total-bar p { font-size:.9rem; color:rgba(255,255,255,.65); margin-bottom:1.25rem; }
+  .kw-total-bar p strong { color:#fff; }
+  .bar-row2 { margin-bottom:1rem; }
+  .bar-label2 { display:flex; justify-content:space-between; font-size:.78rem; margin-bottom:.35rem; color:rgba(255,255,255,.55); }
+  .bar-label2 strong { color:rgba(255,255,255,.85); }
+  .bar-track2 { height:7px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; }
+  .bar-fill2 { height:100%; border-radius:4px; background:var(--accent); animation:fillIn 1.4s ease-out forwards; }
+  @keyframes fillIn { from { width:0; } }
+
+  /* PROBLEM */
+  .problem-bg { background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; margin-top:3rem; }
+  .problem-card { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1.5rem; transition:box-shadow .2s,border-color .2s; }
+  .problem-card:hover { box-shadow:0 4px 20px rgba(0,44,95,.08); border-color:var(--border-strong); }
+  .p-icon { width:42px; height:42px; background:var(--blue-light); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; margin-bottom:1rem; border:1px solid var(--border); }
+  .problem-card h3 { font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:700; color:var(--text); margin-bottom:.5rem; }
+  .problem-card p { font-size:.875rem; color:var(--text-muted); line-height:1.7; }
+
+  /* OPPORTUNITY */
+  .opp-bg { background:var(--bg); }
+  .opp-split { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:3rem; }
+  @media(max-width:640px){ .opp-split { grid-template-columns:1fr; } }
+  .opp-box { border-radius:10px; padding:1.75rem; border:1px solid var(--border); background:var(--bg-alt); }
+  .opp-box.highlighted { background:var(--blue); border-color:var(--blue); }
+  .opp-badge { display:inline-block; background:var(--accent); color:#fff; font-size:.65rem; font-weight:700; letter-spacing:.12em; padding:.2rem .65rem; border-radius:3px; text-transform:uppercase; margin-bottom:1rem; }
+  .opp-box h3 { font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:700; color:var(--text-muted); margin-bottom:1rem; }
+  .opp-box.highlighted h3 { color:rgba(255,255,255,.65); }
+  .opp-list { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+  .opp-list li { font-size:.875rem; display:flex; gap:.75rem; color:var(--text-mid); }
+  .opp-list li::before { content:'–'; color:var(--text-dim); flex-shrink:0; }
+  .opp-box.highlighted .opp-list li { color:rgba(255,255,255,.85); }
+  .opp-box.highlighted .opp-list li::before { content:'✓'; color:var(--accent); font-weight:700; }
+
+  /* PROOF */
+  .proof-bg { background:var(--bg-alt2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .proof-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin:2.5rem 0 2rem; }
+  .proof-stat { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1.5rem 1.25rem; text-align:center; transition:box-shadow .2s; }
+  .proof-stat:hover { box-shadow:0 4px 16px rgba(0,44,95,.09); }
+  .stat-val { font-family:'DM Serif Display',serif; font-size:2.4rem; color:var(--blue); font-weight:400; line-height:1; display:block; margin-bottom:.4rem; }
+  .stat-label { font-size:.82rem; font-weight:600; color:var(--text-mid); }
+  .stat-sub { font-size:.72rem; color:var(--text-dim); margin-top:.2rem; }
+  .proof-bar-wrap { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1.75rem; }
+  .proof-bar-wrap > p { font-size:.9rem; color:var(--text-mid); margin-bottom:1.5rem; line-height:1.7; }
+  .bar-row { margin-bottom:1.1rem; }
+  .bar-label { display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:.4rem; color:var(--text-muted); }
+  .bar-label strong { color:var(--text); font-weight:600; }
+  .bar-track { height:7px; background:var(--bg-alt2); border-radius:4px; overflow:hidden; border:1px solid var(--border); }
+  .bar-fill { height:100%; border-radius:4px; background:var(--blue); animation:fillIn 1.4s ease-out forwards; }
+  .bar-fill.dim { background:var(--border-strong); }
+  .proof-caption { font-size:.78rem; color:var(--text-muted); margin-top:1.25rem; padding-top:1rem; border-top:1px solid var(--border); font-style:italic; }
+  .impressi-note { background:var(--blue-light); border:1px solid var(--border-strong); border-radius:8px; padding:1rem 1.25rem; margin-top:1.5rem; font-size:.85rem; color:var(--blue); line-height:1.7; }
+  .impressi-note strong { font-weight:700; }
+
+  /* PROCESS */
+  .process-bg { background:var(--bg); }
+  .process-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0; margin-top:3rem; position:relative; }
+  .process-step { padding:1.5rem; text-align:center; position:relative; }
+  .process-step:not(:last-child)::after { content:'→'; position:absolute; right:-1rem; top:50%; transform:translateY(-50%); font-size:1.25rem; color:var(--border-strong); }
+  @media(max-width:640px){ .process-step:not(:last-child)::after { display:none; } }
+  .step-circle { width:56px; height:56px; border-radius:50%; background:var(--blue-light); border:2px solid var(--border-strong); display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-family:'DM Serif Display',serif; font-size:1.3rem; color:var(--blue); font-weight:400; }
+  .process-step h3 { font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:700; color:var(--text); margin-bottom:.4rem; }
+  .process-step p { font-size:.83rem; color:var(--text-muted); line-height:1.65; }
+  .process-duration { background:var(--bg-alt); border:1px solid var(--border); border-radius:8px; padding:1rem 1.5rem; margin-top:2rem; text-align:center; font-size:.85rem; color:var(--text-muted); }
+  .process-duration strong { color:var(--blue); font-weight:700; }
+
+  /* WHAT YOU GET */
+  .get-bg { background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .get-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; margin-top:3rem; }
+  .get-card { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1.5rem; display:flex; gap:1rem; transition:border-color .2s,box-shadow .2s; }
+  .get-card:hover { border-color:var(--blue); box-shadow:0 4px 20px rgba(0,44,95,.07); }
+  .get-num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--border-strong); line-height:1; flex-shrink:0; width:2rem; }
+  .get-content h3 { font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:700; color:var(--text); margin-bottom:.35rem; }
+  .get-content p { font-size:.855rem; color:var(--text-muted); line-height:1.65; }
+
+  /* PRICING */
+  .price-bg { background:var(--blue); }
+  .price-card { max-width:520px; margin:3rem auto 0; background:#fff; border-radius:14px; padding:2.5rem; text-align:center; box-shadow:0 8px 40px rgba(0,0,0,.2); position:relative; overflow:hidden; }
+  .price-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--blue) 0%,var(--accent) 100%); }
+  .price-eyebrow { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-muted); font-weight:700; margin-bottom:1.25rem; }
+  .price-main { display:flex; align-items:flex-start; justify-content:center; gap:.25rem; margin-bottom:.25rem; }
+  .price-rp { font-size:1.25rem; margin-top:.75rem; color:var(--text-muted); font-weight:600; }
+  .price-num { font-family:'DM Serif Display',serif; font-size:4.5rem; font-weight:400; color:var(--blue); line-height:1; }
+  .price-period { font-size:.9rem; color:var(--text-muted); margin-bottom:.25rem; }
+  .price-divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+  .price-break { font-size:.95rem; color:var(--text-mid); margin-bottom:.4rem; }
+  .price-break strong { color:var(--blue); font-size:1.3rem; }
+  .price-vs { font-size:.83rem; color:var(--text-muted); margin-bottom:1.75rem; line-height:1.75; background:var(--bg-alt); border-radius:6px; padding:.75rem 1rem; border:1px solid var(--border); text-align:left; }
+  .price-features { list-style:none; text-align:left; display:flex; flex-direction:column; gap:.6rem; margin-bottom:2rem; }
+  .price-features li { display:flex; gap:.75rem; font-size:.875rem; color:var(--text-mid); }
+  .price-features li::before { content:'✓'; color:var(--success); font-weight:700; flex-shrink:0; }
+  .price-cta-wrap { display:flex; flex-direction:column; gap:.75rem; }
+
+  /* FAQ */
+  .faq-bg { background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .faq-list { margin-top:2.5rem; display:flex; flex-direction:column; gap:1rem; }
+  .faq-item { background:var(--bg); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .faq-q { padding:1.25rem 1.5rem; font-weight:700; font-size:.95rem; color:var(--text); cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:1rem; user-select:none; }
+  .faq-q:hover { background:var(--bg-alt); }
+  .faq-icon { font-size:1.1rem; color:var(--blue); flex-shrink:0; transition:transform .25s; }
+  .faq-a { padding:0 1.5rem; max-height:0; overflow:hidden; transition:max-height .3s ease,padding .3s ease; }
+  .faq-a p { font-size:.88rem; color:var(--text-muted); line-height:1.8; padding-bottom:1.25rem; }
+  .faq-item.open .faq-a { max-height:300px; }
+  .faq-item.open .faq-icon { transform:rotate(45deg); }
+
+  /* FOMO */
+  .fomo-bg { background:var(--bg); text-align:center; }
+  .fomo-inner { max-width:640px; margin:0 auto; }
+  .fomo-tag { display:inline-block; background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn-border); border-radius:4px; padding:.4rem 1rem; font-size:.78rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:1.5rem; }
+  .fomo-inner h2 { font-size:clamp(1.6rem,4vw,2.4rem); margin-bottom:1rem; }
+  .fomo-inner p { color:var(--text-mid); line-height:1.9; margin-bottom:2rem; }
+
+  /* CTA FINAL */
+  .cta-final { background:var(--blue); text-align:center; }
+  .cta-inner { max-width:680px; margin:0 auto; }
+  .cta-inner h2 { font-size:clamp(1.6rem,4vw,2.4rem); color:#fff; margin-bottom:1rem; }
+  .cta-inner p { color:rgba(255,255,255,.7); margin-bottom:2rem; line-height:1.9; }
+  .cta-btn-group { display:flex; flex-direction:column; align-items:center; gap:1rem; }
+  .cta-note { font-size:.78rem; color:rgba(255,255,255,.4); }
+  .btn-white { display:inline-flex; align-items:center; gap:.5rem; background:#fff; color:var(--blue); padding:1rem 2.5rem; border-radius:6px; font-weight:700; text-decoration:none; font-size:1rem; transition:background .2s; box-shadow:0 2px 14px rgba(0,0,0,.15); }
+  .btn-white:hover { background:var(--bg-alt); }
+  .btn-ghost-white { display:inline-flex; align-items:center; gap:.5rem; background:transparent; color:rgba(255,255,255,.8); border:1.5px solid rgba(255,255,255,.3); padding:.85rem 2rem; border-radius:6px; font-weight:600; text-decoration:none; font-size:.95rem; transition:background .2s; }
+  .btn-ghost-white:hover { background:rgba(255,255,255,.08); }
+
+  footer { background:var(--text); padding:1.5rem; text-align:center; font-size:.78rem; color:rgba(255,255,255,.35); }
+  footer a { color:rgba(255,255,255,.45); text-decoration:none; }
+  footer a:hover { color:#fff; }
+
+  /* CREDIBILITY */
+  .cred-bg { background:var(--bg-alt2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .cred-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3rem; align-items:center; }
+  @media(max-width:640px){ .cred-grid { grid-template-columns:1fr; } }
+  .cred-about { }
+  .cred-about h3 { font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
+  .cred-about p { font-size:.88rem; color:var(--text-muted); line-height:1.8; margin-bottom:.75rem; }
+  .cred-stats { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .cred-stat-card { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1.25rem; text-align:center; }
+  .cred-stat-num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--blue); display:block; margin-bottom:.25rem; }
+  .cred-stat-label { font-size:.75rem; color:var(--text-muted); }
+
+  @media(max-width:480px){
+    nav { padding:.75rem 1rem; }
+    section { padding:4rem 1rem; }
+    .hero { padding:7rem 1rem 4rem; }
+    .price-card { padding:1.75rem 1.25rem; }
+    .process-step::after { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">djoeraganwebsite.com</a>
+  <a class="nav-cta" href="https://wa.me/6285163661456?text=Halo%2C%20saya%20tertarik%20dengan%20website%20untuk%20sales%20Hyundai" target="_blank">Hubungi Kami</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Khusus Sales &amp; Agen &nbsp;<span>Hyundai</span></div>
+  <h1>Kompetitor belum bergerak.<br><em>Sekarang giliranmu.</em></h1>
+  <p class="hero-sub">Setiap bulan ada puluhan ribu orang Jakarta yang mencari Hyundai di Google — dengan kompetisi yang masih sangat rendah. Website profesional bisa jadi satu-satunya sales yang bekerja 24 jam untukmu.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://hyundai.djoeraganwebsite.com/" target="_blank">Lihat Contoh Website &rarr;</a>
+    <a class="btn-ghost" href="https://wa.me/6285163661456?text=Halo%2C%20saya%20mau%20tanya%20soal%20website%20Hyundai" target="_blank">Tanya via WhatsApp</a>
+  </div>
+  <div class="trust-row">
+    <div class="trust-item"><div class="trust-dot"></div> Klien aktif berjalan</div>
+    <span class="trust-sep">|</span>
+    <div class="trust-item"><div class="trust-dot"></div> Data Google nyata</div>
+    <span class="trust-sep">|</span>
+    <div class="trust-item"><div class="trust-dot"></div> Bukan template</div>
+    <span class="trust-sep">|</span>
+    <div class="trust-item"><div class="trust-dot"></div> Konsultasi gratis dulu</div>
+  </div>
+</section>
+
+<!-- KEYWORD DATA — JAKARTA -->
+<section class="kw-bg">
+  <div class="container">
+    <span class="section-label" style="color:var(--accent);">Data Google Keyword Planner · Jakarta · Apr 2025–Mar 2026</span>
+    <div class="divider"></div>
+    <h2 class="section-title" style="color:#fff;">Ini yang terjadi di Google Jakarta <em style="color:rgba(255,255,255,.6);">setiap bulan</em></h2>
+    <p class="kw-intro">Kata kunci Hyundai dicari puluhan ribu kali per bulan di Jakarta — dengan tingkat persaingan yang masih <em>sangat rendah</em>. Ini bukan opini. Ini data langsung dari Google.</p>
+
+    <div class="kw-hero-stat">
+      <div class="kw-big">50.000+</div>
+      <div class="kw-big-label">pencarian kata "hyundai"<br>per bulan di Jakarta<br><span style="font-size:.8rem; color:rgba(255,255,255,.4);">Kompetisi: Rendah</span></div>
+    </div>
+
+    <div class="kw-grid">
+      <div class="kw-card">
+        <div class="kw-card-vol">5.000</div>
+        <div class="kw-card-kw">harga hyundai creta</div>
+        <span class="kw-pill mid">Kompetisi Menengah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">5.000</div>
+        <div class="kw-card-kw">ioniq 6 / ioniq 5</div>
+        <span class="kw-pill low">Kompetisi Rendah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">5.000</div>
+        <div class="kw-card-kw">hyundai kona</div>
+        <span class="kw-pill low">Kompetisi Rendah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">5.000</div>
+        <div class="kw-card-kw">hyundai staria / h1</div>
+        <span class="kw-pill low">Kompetisi Rendah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">500</div>
+        <div class="kw-card-kw">dealer hyundai</div>
+        <span class="kw-pill low">Kompetisi Rendah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">500</div>
+        <div class="kw-card-kw">harga stargazer / palisade</div>
+        <span class="kw-pill mid">Kompetisi Menengah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">500</div>
+        <div class="kw-card-kw">promo hyundai</div>
+        <span class="kw-pill mid">Kompetisi Menengah</span>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-vol">500</div>
+        <div class="kw-card-kw">harga hyundai ioniq 5</div>
+        <span class="kw-pill mid">Kompetisi Menengah</span>
+      </div>
+    </div>
+
+    <div class="kw-total-bar">
+      <p>Dibanding Daihatsu dan Toyota yang sudah penuh sesak, Hyundai masih punya <strong>ruang kosong yang sangat besar</strong> di pencarian Google. Artinya: lebih mudah masuk halaman 1, dengan biaya lebih kecil.</p>
+      <div class="bar-row2">
+        <div class="bar-label2"><strong>Hyundai — Jakarta</strong><span>50.000+ pencarian/bln · kompetisi RENDAH</span></div>
+        <div class="bar-track2"><div class="bar-fill2" style="width:92%"></div></div>
+      </div>
+      <div class="bar-row2">
+        <div class="bar-label2"><strong>Daihatsu — kompetitor sesama sales sudah ramai</strong><span>kompetisi TINGGI</span></div>
+        <div class="bar-track2"><div class="bar-fill2" style="width:35%; background:rgba(255,255,255,.3);"></div></div>
+      </div>
+      <div class="bar-row2">
+        <div class="bar-label2"><strong>Toyota — sangat penuh</strong><span>kompetisi SANGAT TINGGI</span></div>
+        <div class="bar-track2"><div class="bar-fill2" style="width:15%; background:rgba(255,255,255,.15);"></div></div>
+      </div>
+      <p class="kw-note">Bar menunjukkan kemudahan masuk halaman 1 Google. Data: Google Keyword Planner, lokasi Jakarta, periode Apr 2025–Mar 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-bg">
+  <div class="container">
+    <span class="section-label">Situasi yang Kamu Hadapi</span>
+    <div class="divider"></div>
+    <h2 class="section-title">Peluangnya nyata — tapi hanya berguna kalau kamu bergerak</h2>
+    <p class="section-body">Puluhan ribu orang mencari Hyundai di Google setiap bulan. Kalau tidak ada website-mu di sana, mereka akan menemukan orang lain.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="p-icon">🔍</div>
+        <h3>Tidak ditemukan di Google</h3>
+        <p>Ketika seseorang mengetik "dealer hyundai Jakarta" atau "harga Hyundai Creta", nama kamu tidak muncul. Prospek itu pergi ke orang lain.</p>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">⏰</div>
+        <h3>Waktu habis untuk edukasi berulang</h3>
+        <p>Menjelaskan harga, spesifikasi, dan promo dari nol ke setiap prospek itu melelahkan. Website menjawab semuanya sebelum mereka menghubungimu.</p>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">🤝</div>
+        <h3>Kepercayaan sulit dibangun dari awal</h3>
+        <p>Pembeli Hyundai adalah orang yang selektif. Website profesional membangun kredibilitas bahkan sebelum kamu mengangkat telepon.</p>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">📉</div>
+        <h3>Bergantung 100% pada referral</h3>
+        <p>Referral bagus tapi tidak skalabel. Bulan baik bisa ramai, bulan lain sepi. Website membuka saluran leads baru yang bekerja otomatis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF FROM CLIENT -->
+<section class="proof-bg">
+  <div class="container">
+    <span class="section-label">Bukti Nyata dari Klien Aktif</span>
+    <div class="divider"></div>
+    <h2 class="section-title">Klien sales Daihatsu kami: <em>82 ribu tayang</em> dalam 28 hari</h2>
+    <p class="section-body" style="margin-bottom:0;">Data langsung dari Google Search Console — bukan angka rekaan. Dan ini dari Daihatsu yang kompetisinya jauh lebih ketat dari Hyundai.</p>
+    <div class="proof-grid">
+      <div class="proof-stat">
+        <span class="stat-val">82,4K</span>
+        <div class="stat-label">Total Impresi</div>
+        <div class="stat-sub">dalam 28 hari terakhir</div>
+      </div>
+      <div class="proof-stat">
+        <span class="stat-val">230</span>
+        <div class="stat-label">Klik Masuk</div>
+        <div class="stat-sub">pengunjung nyata ke website</div>
+      </div>
+      <div class="proof-stat">
+        <span class="stat-val">3.3</span>
+        <div class="stat-label">Rata-rata Posisi</div>
+        <div class="stat-sub">halaman 1 Google</div>
+      </div>
+      <div class="proof-stat">
+        <span class="stat-val">1000+</span>
+        <div class="stat-label">Keyword Berbeda</div>
+        <div class="stat-sub">yang memunculkan website ini</div>
+      </div>
+    </div>
+    <div class="proof-bar-wrap">
+      <p>Kata kunci teratas yang membawa pengunjung nyata — dari orang-orang yang sedang aktif mencari mobil.</p>
+      <div class="bar-row">
+        <div class="bar-label"><strong>daihatsu jogja</strong><span>30 klik</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>luxio mobil</strong><span>22 klik · 4.241 tayang</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>mobil luxio</strong><span>15 klik · 8.370 tayang</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>daihatsu xenia</strong><span>6 klik · 10.826 tayang</span></div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:20%"></div></div>
+      </div>
+      <p class="proof-caption">Daihatsu kompetisinya jauh lebih ketat dari Hyundai — tapi tetap bisa masuk halaman 1 dengan ratusan keyword. Dengan kompetisi Hyundai yang lebih rendah, hasilnya berpotensi lebih baik.</p>
+    </div>
+    <div class="impressi-note">
+      <strong>Catatan soal angka impresi vs klik:</strong> 82 ribu impresi artinya 82 ribu kali nama website ini muncul di depan orang yang sedang mencari mobil. Meski yang klik 230, sisanya tetap <em>melihat nama kamu</em> — ini yang membangun brand awareness dan kepercayaan sebelum orang memutuskan untuk menghubungi.
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="cred-bg">
+  <div class="container">
+    <span class="section-label">Tentang Kami</span>
+    <div class="divider"></div>
+    <div class="cred-grid">
+      <div class="cred-about">
+        <h3>djoeraganwebsite.com — jasa website khusus untuk sales otomotif individu</h3>
+        <p>Kami bukan agensi besar dengan puluhan klien korporat. Kami fokus membantu sales dan agen otomotif individu — orang-orang yang perlu kehadiran digital yang kuat tapi tidak punya waktu untuk urusan teknis.</p>
+        <p>Klien kami adalah sales aktif yang bekerja di lapangan. Kami mengerti kebutuhan kalian: website harus cepat live, mudah dijelaskan ke prospek, dan benar-benar menghasilkan leads — bukan sekadar terlihat bagus.</p>
+        <p>Hubungi: <a href="https://wa.me/6285163661456" target="_blank" style="color:var(--blue); font-weight:600;">0851-6366-1456</a></p>
+      </div>
+      <div class="cred-stats">
+        <div class="cred-stat-card">
+          <span class="cred-stat-num">1+</span>
+          <div class="cred-stat-label">Klien sales otomotif aktif</div>
+        </div>
+        <div class="cred-stat-card">
+          <span class="cred-stat-num">82K</span>
+          <div class="cred-stat-label">Impresi terbukti dalam 28 hari</div>
+        </div>
+        <div class="cred-stat-card">
+          <span class="cred-stat-num">1–2</span>
+          <div class="cred-stat-label">Minggu proses dari brief ke live</div>
+        </div>
+        <div class="cred-stat-card">
+          <span class="cred-stat-num">1 thn</span>
+          <div class="cred-stat-label">Support penuh setelah launch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-bg">
+  <div class="container">
+    <span class="section-label">Cara Kerjanya</span>
+    <div class="divider"></div>
+    <h2 class="section-title">Simpel. Kamu tidak perlu <em>urus apapun</em> secara teknis</h2>
+    <p class="section-body">Prosesnya kami yang pimpin dari awal sampai akhir. Kamu hanya perlu menyediakan waktu untuk dua sesi singkat.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle">1</div>
+        <h3>Konsultasi &amp; Brief</h3>
+        <p>Chat atau telpon via WA. Kami pelajari kebutuhan kamu — target area, produk utama, dan tone yang diinginkan. Tidak lebih dari 30 menit.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">2</div>
+        <h3>Desain &amp; Pembangunan</h3>
+        <p>Kami mengerjakan semuanya — desain, konten, SEO dasar, dan integrasi WhatsApp. Kamu review hasilnya, kami revisi sampai pas.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">3</div>
+        <h3>Live &amp; Mulai Bekerja</h3>
+        <p>Website aktif dengan domain dan hosting. Kami serahkan link, dan kamu langsung bisa mulai sebar ke prospek. SEO mulai berjalan otomatis.</p>
+      </div>
+    </div>
+    <div class="process-duration">
+      Dari konsultasi pertama sampai website live: <strong>7–14 hari kerja</strong>. Kamu tidak perlu install apapun, tidak perlu punya keahlian teknis apapun.
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="get-bg">
+  <div class="container">
+    <span class="section-label">Yang Kamu Dapatkan</span>
+    <div class="divider"></div>
+    <h2 class="section-title">Bukan sekadar website — tapi <em>mesin kepercayaan</em></h2>
+    <p class="section-body">Dirancang khusus untuk menarik pembeli Hyundai yang selektif. Bukan template, bukan sekadar katalog online biasa.</p>
+    <div class="get-grid">
+      <div class="get-card">
+        <div class="get-num">01</div>
+        <div class="get-content">
+          <h3>Desain Premium &amp; Unik</h3>
+          <p>Tidak template, tidak pasaran. Didesain agar selaras dengan citra premium Hyundai dan membangun kepercayaan sejak detik pertama.</p>
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-num">02</div>
+        <div class="get-content">
+          <h3>SEO — Muncul di Google Organik</h3>
+          <p>Website dioptimasi untuk muncul di pencarian kata kunci Hyundai yang relevan di kotamu — tanpa biaya iklan bulanan.</p>
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-num">03</div>
+        <div class="get-content">
+          <h3>Tombol WhatsApp di Semua Halaman</h3>
+          <p>Pengunjung yang tertarik langsung diarahkan ke WA-mu. Tidak ada prospek yang hilang hanya karena tidak tahu harus menghubungi siapa.</p>
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-num">04</div>
+        <div class="get-content">
+          <h3>Informasi Produk Lengkap</h3>
+          <p>Spesifikasi, harga, promo, simulasi kredit — calon pembeli mendapat jawaban sebelum bertanya. Closing jadi lebih cepat.</p>
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-num">05</div>
+        <div class="get-content">
+          <h3>Responsif di HP &amp; Desktop</h3>
+          <p>Terlihat sempurna di semua device. Sebagian besar pembeli Hyundai riset dari smartphone — website kamu siap untuk itu.</p>
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-num">06</div>
+        <div class="get-content">
+          <h3>Support &amp; Update 1 Tahun Penuh</h3>
+          <p>Perubahan promo, update produk, atau penyesuaian konten — kami yang kerjakan selama masa kontrak. Kamu fokus jualan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price-bg">
+  <div class="container">
+    <span class="section-label">Investasi</span>
+    <div class="divider"></div>
+    <h2 class="section-title" style="color:#fff;">Satu closing bisa menutupi <span style="color:rgba(255,255,255,.6); font-style:italic;">setahun penuh</span></h2>
+    <div class="price-card">
+      <p class="price-eyebrow">Paket Website Sales Hyundai — 1 Tahun</p>
+      <div class="price-main">
+        <span class="price-rp">Rp</span>
+        <span class="price-num">6</span>
+        <span style="font-size:1.4rem; margin-top:.8rem; color:var(--text-muted); font-weight:600;">juta</span>
+      </div>
+      <p class="price-period">per tahun / sekali bayar</p>
+      <hr class="price-divider">
+      <p class="price-break">atau hanya <strong>Rp 500rb</strong> per bulan</p>
+      <p class="price-vs">Lebih murah dari iklan satu hari di marketplace. Lebih murah dari biaya bensin sebulan. Dan ini bekerja 24 jam, 7 hari — tanpa kamu harus ada.</p>
+      <ul class="price-features">
+        <li>Desain website profesional &amp; unik — bukan template</li>
+        <li>Optimasi Google (SEO) sejak hari pertama</li>
+        <li>Domain &amp; hosting selama 1 tahun sudah termasuk</li>
+        <li>Integrasi tombol WhatsApp di semua halaman</li>
+        <li>Konten produk Hyundai lengkap dan informatif</li>
+        <li>Update konten selama masa kontrak</li>
+        <li>Support teknis &amp; konsultasi via WhatsApp</li>
+      </ul>
+      <div class="price-cta-wrap">
+        <a class="btn-primary" href="https://hyundai.djoeraganwebsite.com/" target="_blank" style="justify-content:center;">Lihat Contoh Website Dulu &rarr;</a>
+        <a class="btn-ghost" href="https://wa.me/6285163661456?text=Halo%2C%20saya%20mau%20order%20website%20Hyundai%20dari%20djoeraganwebsite" target="_blank" style="justify-content:center;">Pesan via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-bg">
+  <div class="container">
+    <span class="section-label">Pertanyaan yang Sering Muncul</span>
+    <div class="divider"></div>
+    <h2 class="section-title">Semua yang ingin kamu tanyakan — <em>sudah dijawab di sini</em></h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Setelah kontrak 1 tahun habis, apa yang terjadi dengan website saya?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Website kamu tetap aktif. Sebelum masa kontrak berakhir, kami akan menghubungimu untuk opsi perpanjangan. Kalau kamu perpanjang, semuanya lanjut berjalan. Kalau tidak, kamu tetap bisa ambil file website-mu — tidak ada data yang hilang. Domain dan hosting yang sudah dibayar juga tetap aktif sampai masa berlakunya habis.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Saya tidak punya keahlian teknis sama sekali. Apakah bisa?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Justru memang untuk kamu yang tidak mau pusing urusan teknis. Kamu hanya perlu chat WA dengan kami untuk brief singkat — siapa target kamu, area mana, produk apa yang mau ditonjolkan. Sisanya kami yang kerjakan sepenuhnya. Tidak perlu install apapun, tidak perlu paham coding, tidak perlu buat konten dari nol.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Berapa lama sampai website saya live dan mulai muncul di Google?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Proses pembuatan 7–14 hari kerja setelah brief selesai. Setelah live, Google biasanya mulai mengindeks website dalam 1–4 minggu. Untuk mulai muncul di posisi yang baik, SEO butuh waktu 1–3 bulan — ini adalah investasi jangka panjang, bukan iklan yang langsung hilang begitu budget habis.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Buktinya dari klien Daihatsu di Jogja — apakah ini berlaku untuk saya yang jual Hyundai di Jakarta?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Prinsip SEO-nya sama persis. Yang berbeda justru menguntungkan kamu: Hyundai di Jakarta punya search volume besar (50.000+ pencarian per bulan) tapi dengan kompetisi yang jauh lebih rendah dari Daihatsu. Artinya, lebih mudah masuk halaman 1 Google. Klien Daihatsu kami berhasil meski di lingkungan yang lebih kompetitif — potensi untuk Hyundai Jakarta bahkan lebih besar.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Apakah ada jaminan kalau hasilnya tidak sesuai ekspektasi?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Kami tidak bisa menjamin jumlah leads spesifik — karena itu juga bergantung pada area, produk, dan keaktifan kamu dalam follow-up. Yang kami jamin: website live sesuai kesepakatan, dioptimasi dengan benar, dan kami support penuh selama 1 tahun. Itulah kenapa kami sarankan kamu lihat dulu contoh website yang sudah berjalan sebelum memutuskan — tidak ada kewajiban apapun dari situ.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Bedanya apa dengan website template murah yang banyak dijual?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Template murah biasanya: tampilan sama dengan ratusan website lain, tidak dioptimasi untuk SEO, tidak ada support setelah jadi, dan tidak disesuaikan dengan konteks sales otomotif individu. Website kami dirancang khusus untuk satu tujuan: membuat calon pembeli Hyundai percaya kepada kamu secara spesifik — bukan tampil generik seperti semua orang.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOMO -->
+<section class="fomo-bg">
+  <div class="container">
+    <div class="fomo-inner">
+      <div class="fomo-tag">Perlu dipikirkan dengan serius</div>
+      <h2>Temanmu sesama sales sudah mulai duluan — agak lucu kalau kamu masih ragu</h2>
+      <p>Pertanyaannya bukan lagi <em>"apakah website itu perlu?"</em> — tapi <em>"siapa yang bergerak lebih dulu dan punya keunggulan lebih lama."</em> Setiap bulan ada 50 ribu orang mencari Hyundai di Google. Saat ini kamu masih punya kesempatan untuk jadi yang pertama.</p>
+      <a class="btn-primary" href="https://wa.me/6285163661456?text=Halo%2C%20saya%20mau%20diskusi%20soal%20website%20Hyundai" target="_blank">Diskusi Sekarang &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-final">
+  <div class="cta-inner">
+    <h2>Mulai dari melihat dulu — tidak ada kewajiban apapun</h2>
+    <p>Kami sudah menyiapkan contoh website Hyundai yang bisa kamu lihat langsung sekarang. Setelah itu, kalau tertarik atau ada pertanyaan, tinggal WhatsApp — kami balas cepat dan konsultasinya gratis.</p>
+    <div class="cta-btn-group">
+      <a class="btn-white" href="https://hyundai.djoeraganwebsite.com/" target="_blank">Lihat Contoh Website Hyundai &rarr;</a>
+      <a class="btn-ghost-white" href="https://wa.me/6285163661456?text=Halo%2C%20saya%20sudah%20lihat%20contoh%20websitenya%20dan%20mau%20tanya%20lebih%20lanjut" target="_blank">WhatsApp: 0851-6366-1456</a>
+      <p class="cta-note">Buka contoh websitenya dulu — baru hubungi kami kalau tertarik.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 <a href="#">djoeraganwebsite.com</a> &nbsp;&mdash;&nbsp; Jasa Pembuatan Website Profesional untuk Sales Otomotif &nbsp;&mdash;&nbsp; <a href="https://wa.me/6285163661456">0851-6366-1456</a></p>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
