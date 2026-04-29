@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Ganti dengan URL domain aslimu atau URL Vercel kamu
+Sitemap: https://sales-ten-dusky.vercel.app/sitemap.xml
